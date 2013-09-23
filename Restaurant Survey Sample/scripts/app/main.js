@@ -43,15 +43,26 @@
         var results = {
             location: { north: 0, south: 0, west: 0 },
             appetizer: { yes: 0, no: 0 },
-            rating: []
+            rating: { '1': 0, '2': 0, '3': 0, '4': 0, '5': 0 }
         };
 
         data.result.forEach(function(result) {
             results.location[result.location]++;
             results.appetizer[(result.appetizer ? 'yes' : 'no')]++;
-            results.rating.push(result.rating);
+            results.rating[result.rating]++;
         });
-        console.log(JSON.stringify(results));
+
+		$('#results-north').text(results.location.north);
+		$('#results-south').text(results.location.south);
+		$('#results-west').text(results.location.west);
+        $('#results-yes').text(results.appetizer.yes);
+        $('#results-no').text(results.appetizer.no);
+        $('#results-1').text(results.rating['1']);
+        $('#results-2').text(results.rating['2']);
+        $('#results-3').text(results.rating['3']);
+        $('#results-4').text(results.rating['4']);
+        $('#results-5').text(results.rating['5']);
+        
         $.mobile.loading('hide');
     };
     
