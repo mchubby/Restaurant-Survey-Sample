@@ -26,21 +26,15 @@
         };
         
         $.mobile.loading('show', { text: 'Processing...', textVisible: true });
-
-        $.ajax({
-            type: "POST",
-            url: 'https://api.everlive.com/v1/eVKxNui85A6TopjR/Ratings',
-            headers: { "Authorization" : "Bearer ${AccessToken}" },
-            contentType: "application/json",
-            data: JSON.stringify(data),
-            success: function(data){
+		Everlive.$.data('Ratings').create(data,
+            function(data){
                 $.mobile.loading('hide');
                 $.mobile.changePage('#success');
             },
-            error: function(error){
+            function(error){
                 alert('Sorry, an error occurred processing your survey. Please try again later.');
-            }
-        });
+            }                         
+		);
 
         return false;
     });
