@@ -4,17 +4,10 @@
     /******************************************************************/
     // global error handling
     /******************************************************************/
-    var showAlert = function(message, title, callback) {
-        navigator.notification.alert(message, callback || function () {
-        }, title, 'OK');
-    };
-    var showError = function(message) {
-        showAlert(message, 'Error occured');
-    };
     window.addEventListener('error', function (e) {
         e.preventDefault();
         var message = e.message + "' from " + e.filename + ":" + e.lineno;
-        showAlert(message, 'Error occured');
+        alert('Error occured: ' + message);
         return true;
     });
 
@@ -32,6 +25,8 @@
             rating: $(this.rating).val()
         };
         
+        $.mobile.loading('show', { text: 'Processing...', textVisible: true });
+
         $.ajax({
             type: "POST",
             url: 'https://api.everlive.com/v1/eVKxNui85A6TopjR/Ratings',
@@ -39,11 +34,14 @@
             contentType: "application/json",
             data: JSON.stringify(data),
             success: function(data){
-                alert(JSON.stringify(data));
+                $.mobile.loading('hide');
+                $.mobile.changePage('#success');
             },
             error: function(error){
                 alert('Sorry, an error occurred processing your survey. Please try again later.');
             }
-        })
+        });
+
+        return false;
     });
 }());
