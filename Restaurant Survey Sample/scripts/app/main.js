@@ -20,7 +20,7 @@
     $('form').on('submit', function(event) {
         event.preventDefault();
         var data = {
-            location: $(this.location).val(),
+            location: $(this.location).filter(':checked').val(),
             appetizer: $(this.appetizer).val() == "yes",
             rating: $(this.rating).val()
         };
@@ -37,5 +37,31 @@
 		);
 
         return false;
+    });
+    
+    function displayResults(data) {
+        var results = {
+            location: { north: 0, south: 0, west: 0 },
+            appetizer: { yes: 0, no: 0 },
+            rating: []
+        };
+
+        data.result.forEach(function(result) {
+            results.location[result.location]++;
+            results.appetizer[(result.appetizer ? 'yes' : 'no')]++;
+            results.rating.push(result.rating);
+        });
+        console.log(JSON.stringify(results));
+        $.mobile.loading('hide');
+    };
+    
+    $('#results').on('pageshow', function() {
+        $.mobile.loading('show', { text: 'Loading results...', textVisible: true });
+        Everlive.$.data('Ratings')
+        	.get()
+            .then(displayResults,
+				function(error) {
+                	'Sorry, loading the survey results failed.';
+	            });
     });
 }());
