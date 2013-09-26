@@ -1,4 +1,4 @@
 Restaurant-Survey-Sample
 ========================
 
-Example repo of creating a restaurant survey using jQuery Mobile, Icenium, and Everlive.
+Repo for a sample restaurant survey built with jQuery Mobile, Icenium, and Everlive.
