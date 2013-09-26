@@ -70,7 +70,7 @@
         	.get()
             .then(displayResults,
 				function(error) {
-                	'Sorry, loading the survey results failed.';
+                	alert('Sorry, loading the survey results failed.');
 	            });
     });
 }());
