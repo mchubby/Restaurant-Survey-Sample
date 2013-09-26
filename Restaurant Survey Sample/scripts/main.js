@@ -13,9 +13,7 @@
 
 
     // initialize Everlive SDK
-    var el = new Everlive({
-        apiKey: 'eVKxNui85A6TopjR'
-    });
+    new Everlive({ apiKey: 'eVKxNui85A6TopjR' });
     
     $('form').on('submit', function(event) {
         event.preventDefault();
